@@ -6,11 +6,16 @@ gem 'pg'
 gem 'github_api'
 gem 'haml-rails'
 gem 'jquery-rails'
+gem 'simple_form'
+gem 'devise'
+gem 'omniauth'
+gem 'omniauth-github'
 
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'therubyracer', :platforms => :ruby
+  gem 'less-rails'
+  gem 'twitter-bootstrap-rails'
   gem 'uglifier', '>= 1.0.3'
 end
 

@@ -1,0 +1,5 @@
+%h1 Home
+- if user_signed_in?
+  = current_user.name
+- else
+  = link_to "Sign in with Github", user_omniauth_authorize_path(:github)

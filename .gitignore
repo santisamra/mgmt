@@ -19,3 +19,7 @@ pickle-email-*.html
 
 # Vagrant
 .vagrant
+
+
+# Configuration
+.github.yml

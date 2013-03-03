@@ -2,4 +2,14 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  views:
+    navbar:
+      repositories: "Repositories"
+      search: "Search ..."
+
+    repositories:
+      public: "Public repositories"
+      private: "Private repositories"
+      loading:
+        public: "Loading public repositories ..."
+        private: "Loading private repositories ..."

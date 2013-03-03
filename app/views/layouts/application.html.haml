@@ -6,4 +6,7 @@
     = stylesheet_link_tag    "application", :media => "all"
     = javascript_include_tag "application"
     = csrf_meta_tags
-  %body= yield
+  %body{'data-token' => "#{current_user.token if user_signed_in?}", 'data-controller' => controller.controller_name, 'data-action' => controller.action_name, 'data-organization' => organization}
+    - if user_signed_in?
+      = render partial: 'layouts/navbar'
+    .container= yield

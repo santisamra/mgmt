@@ -1,0 +1,17 @@
+#public-repos
+  %h2
+    = t('views.repositories.public')
+    %span.badge.js-repo-count 0
+  .js-repo-list
+    .loader
+      = image_tag('loader.gif') 
+      = t('views.repositories.loading.public')
+
+#private-repos
+  %h2
+    = t('views.repositories.private')
+    %span.badge.js-repo-count 0
+  .js-repo-list
+    .loader
+      = image_tag('loader.gif') 
+      = t('views.repositories.loading.public')

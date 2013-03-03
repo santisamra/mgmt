@@ -18,6 +18,8 @@ ActiveRecord::Schema.define(:version => 20130303081428) do
     t.string   "name"
     t.string   "login"
     t.string   "token"
+    t.string   "organization_avatar"
+    t.string   "gravatar_id"
     t.datetime "remember_created_at"
     t.integer  "sign_in_count",       :default => 0
     t.datetime "current_sign_in_at"

@@ -17,8 +17,20 @@ class Users::CallbacksController < Devise::OmniauthCallbacksController
         name: auth.info.name,
         email: auth.info.email,
         login: auth.info.nickname,
-        token: auth.credentials.token
+        token: auth.credentials.token,
+        gravatar_id: auth.extra.raw_info.gravatar_id,
+        organization_avatar: fetch_organization_avatar(auth.credentials.token)
       }
+    end
+
+    def fetch_organization_avatar(token)
+      github = Github.new(oauth_token: token)
+      organization = github.orgs.get(organization_name)
+      organization.avatar_url
+    end
+
+    def organization_name
+      Rails.application.config.github['organization']
     end
 
 end

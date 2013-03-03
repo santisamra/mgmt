@@ -6,6 +6,8 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string   :name
       t.string   :login
       t.string   :token
+      t.string   :organization_avatar
+      t.string   :gravatar_id
 
       ## Rememberable
       t.datetime :remember_created_at

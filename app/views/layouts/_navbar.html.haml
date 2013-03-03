@@ -1,0 +1,18 @@
+.navbar.navbar-fixed-top
+  .navbar-inner
+    .container
+      %a.brand{ href: root_path } MGMT
+      %ul.nav
+        %li
+          %a{ href: repositories_path }= t('views.navbar.repositories')
+      %ul.nav.pull-right
+        %li
+          %form.navbar-search.pull-right
+            %input.search-query{type: 'text', placeholder: t('views.navbar.search')}
+        %li.divider-vertical
+        %li
+          %p.navbar-text= current_user.name.split(" ").each(&:capitalize).join(" ")
+        %li.divider-vertical
+        %li 
+          .navbar-text
+            %img{ src: current_user.organization_avatar, width: '30px' }

@@ -10,6 +10,7 @@ gem 'simple_form'
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-github'
+gem 'rails-backbone'
 
 group :assets do
   gem 'coffee-rails', '~> 3.2.1'

@@ -2,8 +2,8 @@ window.Mgmt.Views.Repositories = Backbone.View.extend
 
   # Public Methods
 
-  repoGroupTemplate: _.template('<div class="row js-repo-group"></div>')
-  repoItem: _.template('<div class="span3"><a href="repositories/<%= repoName %>"><%= repoName %></a></div>')
+  repoGroupTemplate: JST['backbone/templates/repositories/item_group']
+  repoItem: JST['backbone/templates/repositories/item']
 
   initialize: (options) ->
     this.repositories = options.repositories

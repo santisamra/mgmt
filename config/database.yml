@@ -1,0 +1,23 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: mgmt_development
+  pool: 5
+  username: mgmt
+  password: mgmt
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: mgmt_test
+  pool: 5
+  username: mgmt
+  password: mgmt
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: mgmt_production
+  pool: 5
+  username: mgmt
+  password: mgmt

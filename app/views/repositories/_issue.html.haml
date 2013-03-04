@@ -1,0 +1,24 @@
+%li.js-issue{'data-number' => issue.number, 'data-status' => issue.status, 'data-type' => issue.issue_type, 'data-estimated' => "#{!issue.estimated_hours.nil?}"}
+  %div
+    %a.js-issue-link{href: '#'}= "##{issue.number}"
+    %span.js-issue-title= t('views.issues.loading.title')
+  %div
+    %div
+      %span= t('views.issues.created_at')
+      %abbr.js-timeago{title: issue.created_at.strftime('%FT%T%:z') }= issue.created_at
+    %div
+      %span= t('views.issues.updated_at')
+      %abbr.js-timeago{title: issue.updated_at.strftime('%FT%T%:z') }= issue.updated_at
+    %div
+      %span= t('views.issues.estimated')
+      %span
+        - if issue.estimated_hours
+          = issue.estimated_hours
+        - else
+          = t('views.issues.unestimated')
+    %div
+      %span= t('views.issues.worked')
+      %span= issue.worked_hours
+  %div
+    %a.js-edit{href:'#', title: t('views.issues.edit')}
+      %i.icon-edit

@@ -13,3 +13,11 @@ en:
       loading:
         public: "Loading public repositories ..."
         private: "Loading private repositories ..."
+
+    issues:
+      created_at: 'Created'
+      updated_at: 'Updated'
+      estimated: 'Estimated hours'
+      worked: 'Worked hours'
+      unestimated: 'unestimated'
+      edit: 'Edit issue'

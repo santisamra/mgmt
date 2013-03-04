@@ -21,3 +21,5 @@ en:
       worked: 'Worked hours'
       unestimated: 'unestimated'
       edit: 'Edit issue'
+      loading:
+        title: 'Loading title ...'

@@ -1,4 +1,4 @@
-window.Mgmt.Views.Repositories = Backbone.View.extend
+class RepositoryCollectionView extends Backbone.View
 
   # Public Methods
 
@@ -26,3 +26,7 @@ window.Mgmt.Views.Repositories = Backbone.View.extend
 
   _repoShouldBeListed: (repo) ->
     (repo.private and this.privacy is 'private') or (not repo.private and this.privacy is 'public')
+
+# Exports
+
+window.Mgmt.Views.RepositoryCollectionView = RepositoryCollectionView

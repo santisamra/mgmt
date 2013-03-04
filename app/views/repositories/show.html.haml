@@ -1,0 +1,5 @@
+%h1= @repo.name
+%ul
+  - @repo.issues.each do |issue|
+    %li{'data-number' => issue.number}
+      %a{href: '#'}= "##{issue.number}"

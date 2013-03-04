@@ -11,7 +11,29 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130303081428) do
+ActiveRecord::Schema.define(:version => 20130303225659) do
+
+  create_table "issues", :force => true do |t|
+    t.string   "status",          :default => "not_started"
+    t.string   "issue_type",      :default => "feature"
+    t.decimal  "estimated_hours"
+    t.decimal  "worked_hours",    :default => 0.0
+    t.integer  "number"
+    t.integer  "repository_id"
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+  end
+
+  add_index "issues", ["repository_id"], :name => "index_issues_on_repository_id"
+
+  create_table "repositories", :force => true do |t|
+    t.string   "organization"
+    t.string   "name"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "repositories", ["organization", "name"], :name => "index_repositories_on_organization_and_name"
 
   create_table "users", :force => true do |t|
     t.string   "email"

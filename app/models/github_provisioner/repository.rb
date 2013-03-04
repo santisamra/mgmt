@@ -1,4 +1,4 @@
-module Github
+module GithubProvisioner
 
   class Repository < SimpleDelegator
 
@@ -7,7 +7,7 @@ module Github
       super(repository)
     end
 
-    def from_github!
+    def provide_issues!
       issues = @github.issues.list(user: organization, repo: name)
       self.issues_attributes = issues.map do |issue|
         { 

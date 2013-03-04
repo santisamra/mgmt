@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  include Github::User
+  include GithubProvisioner::User
 
   # Devise
 

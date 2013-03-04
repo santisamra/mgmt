@@ -7,8 +7,8 @@ class RepositoriesController < ApplicationController
   def show
     @repo = repository
     unless @repo
-      @repo = Github::Repository.new(current_user.github, create_repository)
-      @repo.from_github!
+      @repo = GithubProvisioner::Repository.new(current_user.github, create_repository)
+      @repo.provide_issues!
     end
   end
 

@@ -1,3 +1,62 @@
-// Place all the styles related to the repositories controller here.
-// They will automatically be included in application.css.
-// You can use Less here: http://lesscss.org/
+#issues {
+  list-style-type: none;
+  max-width: 35%;
+}
+
+.issue {
+  width: 100%;
+  margin: 5px 5px 5px 5px;
+  padding: 5px 5px 5px 5px;
+  border: 1px solid;
+}
+
+.issue .info{
+  width: 90%;
+  height: 43px;
+}
+
+.issue .dates {
+  font-size: 11px;
+  overflow: auto;
+  clear: both;
+}
+
+.issue .edit {
+  width: 10%;
+  height: 43px;
+}
+
+.issue .edit i {
+
+}
+
+.issue .status-switch {
+  width: 100px;
+  height: 20px;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.issue .item {
+  margin-right: 10px;
+}
+
+.issue .item .open {
+  background-color: #6cc644;
+  color: #ffffff;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 3px;
+  font-size: 12px;
+  padding: 3px 3px 3px 3px;
+}
+
+.issue .item .closed {
+  background-color: #bd2c00;
+  color: #ffffff;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 3px;
+  font-size: 12px;
+  padding: 3px 3px 3px 3px;
+}

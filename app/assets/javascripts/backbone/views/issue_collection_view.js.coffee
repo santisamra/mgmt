@@ -9,7 +9,10 @@ class IssueView extends Backbone.View
     @type = @$el.data('type')
 
   render: ->
-    @$('.js-issue-title').html(@model.title)
+    title = @model.title
+    @$('.js-issue-title').attr("title", title)
+    title = title.substring(0, 48) + " ..." if title.length > 49
+    @$('.js-issue-title').html(title)
     @$('.js-issue-link').attr('href', @model.html_url)
     @$('.js-timeago').timeago()
 

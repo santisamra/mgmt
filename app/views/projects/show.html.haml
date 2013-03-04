@@ -1,4 +1,4 @@
-%h1= @project.name
+%h1.capitalize= @project.name
 %ul#issues
   - @project.issues.each do |issue|
     = render partial: 'projects/issue', locals: { issue: issue }

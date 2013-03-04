@@ -1,24 +1,35 @@
-%li.js-issue{'data-number' => issue.number, 'data-status' => issue.status, 'data-type' => issue.issue_type, 'data-estimated' => "#{!issue.estimated_hours.nil?}"}
-  %div
-    %a.js-issue-link{href: '#'}= "##{issue.number}"
-    %span.js-issue-title= t('views.issues.loading.title')
-  %div
-    %div
+%li.issue.js-issue{'data-number' => issue.number, 'data-status' => issue.status, 'data-type' => issue.issue_type, 'data-estimated' => "#{!issue.estimated_hours.nil?}", 'data-github-status' => issue.github_status}
+  .first-row
+    .info.pull-left
+      %div
+        %div
+          %a.js-issue-link{href: '#'}= "##{issue.number}"
+          %span.js-issue-title= t('views.issues.loading.title')
+      %div
+        .item.pull-left
+          %select.status-switch
+            - Issue::STATUS.each do |status|
+              %option{value: status}= t("views.issues.status.#{status}")
+        .item.pull-left
+          %span.js-github-status{href: "#", class: issue.github_status}= issue.github_status
+        .item.pull-left
+          %span{title: t('views.issues.estimated.long')}= "#{t('views.issues.estimated.short')}:"
+          %strong.capitalize
+            - if issue.estimated_hours
+              = issue.estimated_hours
+            - else
+              = t('views.issues.unestimated')
+        .item.pull-left
+          %span{title: t('views.issues.worked.long')}= "#{t('views.issues.worked.short')}:"
+          %strong= issue.worked_hours
+    .pull-left.edit
+      %a.btn.btn-small.js-edit{href:'#', title: t('views.issues.edit')}
+        %i.icon-edit
+  
+  .dates
+    .pull-left
       %span= t('views.issues.created_at')
       %abbr.js-timeago{title: issue.created_at.strftime('%FT%T%:z') }= issue.created_at
-    %div
+    .pull-right
       %span= t('views.issues.updated_at')
       %abbr.js-timeago{title: issue.updated_at.strftime('%FT%T%:z') }= issue.updated_at
-    %div
-      %span= t('views.issues.estimated')
-      %span
-        - if issue.estimated_hours
-          = issue.estimated_hours
-        - else
-          = t('views.issues.unestimated')
-    %div
-      %span= t('views.issues.worked')
-      %span= issue.worked_hours
-  %div
-    %a.js-edit{href:'#', title: t('views.issues.edit')}
-      %i.icon-edit

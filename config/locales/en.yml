@@ -17,9 +17,22 @@ en:
     issues:
       created_at: 'Created'
       updated_at: 'Updated'
-      estimated: 'Estimated hours'
-      worked: 'Worked hours'
+      estimated: 
+        short: 'EH'
+        long: 'Estimated hours'
+      worked: 
+        short: 'WH'
+        long: 'Worked hours'
       unestimated: 'unestimated'
       edit: 'Edit issue'
+      status_: 'Status'
+      github_status: 'Github status'
+      status:
+        not_started: 'Not started'
+        started: 'Started'
+        finished: 'Finished'
+        accepted: 'Accepted'
+        rejected: 'Rejected'
+        delivered: 'Delivered'
       loading:
         title: 'Loading title ...'

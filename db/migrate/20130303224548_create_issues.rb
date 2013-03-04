@@ -7,6 +7,7 @@ class CreateIssues < ActiveRecord::Migration
       t.decimal     :worked_hours, default: 0
       t.integer     :number
       t.references  :repository
+      t.string      :github_status
 
       t.timestamps
     end

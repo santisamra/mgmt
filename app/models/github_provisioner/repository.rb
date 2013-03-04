@@ -12,6 +12,7 @@ module GithubProvisioner
       self.issues_attributes = issues.map do |issue|
         { 
           number: issue.number,
+          github_status: issue.state,
           created_at: issue.created_at,
           updated_at: issue.updated_at
         }

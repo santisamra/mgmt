@@ -4,15 +4,15 @@
 en:
   views:
     navbar:
-      repositories: "Repositories"
+      projects: "Projects"
       search: "Search ..."
 
-    repositories:
-      public: "Public repositories"
-      private: "Private repositories"
+    projects:
+      public: "Public projects"
+      private: "Private projects"
       loading:
-        public: "Loading public repositories ..."
-        private: "Loading private repositories ..."
+        public: "Loading public projects ..."
+        private: "Loading private projects ..."
 
     issues:
       created_at: 'Created'

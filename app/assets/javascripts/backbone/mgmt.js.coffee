@@ -11,5 +11,5 @@ window.Mgmt =
   Views: {}
 
 $ ->
-  new Mgmt.Routers.RepositoryRouter()
+  new Mgmt.Routers.ProjectRouter()
   Backbone.history.start(pushState: true)

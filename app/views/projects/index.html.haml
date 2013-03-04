@@ -1,0 +1,17 @@
+#public-projects
+  %h2
+    = t('views.projects.public')
+    %span.badge.js-project-count 0
+  .js-project-list
+    .loader
+      = image_tag('loader.gif') 
+      = t('views.projects.loading.public')
+
+#private-projects
+  %h2
+    = t('views.projects.private')
+    %span.badge.js-project-count 0
+  .js-project-list
+    .loader
+      = image_tag('loader.gif') 
+      = t('views.projects.loading.public')

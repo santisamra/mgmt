@@ -1,0 +1,4 @@
+%h1= @project.name
+%ul#issues
+  - @project.issues.each do |issue|
+    = render partial: 'projects/issue', locals: { issue: issue }

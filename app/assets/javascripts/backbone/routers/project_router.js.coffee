@@ -1,13 +1,13 @@
 # Imports
 
-RepositoryCollectionView = window.Mgmt.Views.RepositoryCollectionView
+ProjectCollectionView = window.Mgmt.Views.ProjectCollectionView
 IssueCollectionView = window.Mgmt.Views.IssueCollectionView
 
-class RepositoryRouter extends Backbone.Router
+class ProjectRouter extends Backbone.Router
 
   routes:
-    "repositories"        : "index"
-    "repositories/:repo"  : "show"
+    "projects"            : "index"
+    "projects/:project"   : "show"
 
   initialize: ->
     @organization = $("body").data("organization")
@@ -19,29 +19,29 @@ class RepositoryRouter extends Backbone.Router
     user = @github.getUser()
     user.orgRepos(@organization, _onOrgRepoReponse)
 
-  show: (repo)->
-    issues = @github.getIssues(@organization, repo)
+  show: (project)->
+    issues = @github.getIssues(@organization, project)
     issues.list({}, _onIssuesResponse)
 
   # Private methods
 
-  _onOrgRepoReponse = (error, repos) ->
+  _onOrgRepoReponse = (error, projects) ->
     if error
-      alert("There was an error fetching the repositories")
+      alert("There was an error fetching the projects repositories from github")
       return
     
-    publicRepositories = new RepositoryCollectionView
-      el: $('#public-repos')
+    publicProjects = new ProjectCollectionView
+      el: $('#public-projects')
       privacy: 'public'
-      repositories: repos
+      projects: projects
 
-    privateRepositories = new RepositoryCollectionView
-      el: $('#private-repos')
+    privateProjects = new ProjectCollectionView
+      el: $('#private-projects')
       privacy: 'private'
-      repositories: repos
+      projects: projects
 
-    publicRepositories.render()
-    privateRepositories.render()
+    publicProjects.render()
+    privateProjects.render()
 
   _onIssuesResponse = (error, issues) ->
     if error
@@ -56,4 +56,4 @@ class RepositoryRouter extends Backbone.Router
 
 # Exports
 
-window.Mgmt.Routers.RepositoryRouter = RepositoryRouter
+window.Mgmt.Routers.ProjectRouter = ProjectRouter

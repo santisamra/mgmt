@@ -1,4 +1,4 @@
-class Repository < ActiveRecord::Base
+class Project < ActiveRecord::Base
 
   # Validations
 

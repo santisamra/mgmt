@@ -1,4 +1,0 @@
-%h1= @repo.name
-%ul#issues
-  - @repo.issues.each do |issue|
-    = render partial: 'repositories/issue', locals: { issue: issue }

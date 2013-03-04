@@ -6,11 +6,11 @@ class CreateIssues < ActiveRecord::Migration
       t.decimal     :estimated_hours
       t.decimal     :worked_hours, default: 0
       t.integer     :number
-      t.references  :repository
+      t.references  :project
       t.string      :github_status
 
       t.timestamps
     end
-    add_index :issues, :repository_id
+    add_index :issues, :project_id
   end
 end

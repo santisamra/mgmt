@@ -19,21 +19,22 @@ ActiveRecord::Schema.define(:version => 20130303225659) do
     t.decimal  "estimated_hours"
     t.decimal  "worked_hours",    :default => 0.0
     t.integer  "number"
-    t.integer  "repository_id"
+    t.integer  "project_id"
+    t.string   "github_status"
     t.datetime "created_at",                                 :null => false
     t.datetime "updated_at",                                 :null => false
   end
 
-  add_index "issues", ["repository_id"], :name => "index_issues_on_repository_id"
+  add_index "issues", ["project_id"], :name => "index_issues_on_project_id"
 
-  create_table "repositories", :force => true do |t|
+  create_table "projects", :force => true do |t|
     t.string   "organization"
     t.string   "name"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
 
-  add_index "repositories", ["organization", "name"], :name => "index_repositories_on_organization_and_name"
+  add_index "projects", ["organization", "name"], :name => "index_projects_on_organization_and_name", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "email"

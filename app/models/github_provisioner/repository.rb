@@ -2,9 +2,9 @@ module GithubProvisioner
 
   class Repository < SimpleDelegator
 
-    def initialize(github, repository)
+    def initialize(github, project)
       @github = github
-      super(repository)
+      super(project)
     end
 
     def provide_issues!

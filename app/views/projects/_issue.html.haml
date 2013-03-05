@@ -1,4 +1,9 @@
-%li.issue.js-issue{'data-number' => issue.number, 'data-status' => issue.status, 'data-type' => issue.issue_type, 'data-estimated' => "#{!issue.estimated_hours.nil?}", 'data-github-status' => issue.github_status}
+%li.issue.js-issue{'data-number' => issue.number,                           |
+                   'data-status' => issue.status,                           |
+                   'data-type' => issue.issue_type,                         | 
+                   'data-estimated' => "#{!issue.estimated_hours.nil?}",    |
+                   'data-github-status' => issue.github_status,             |
+                   'data-id' => issue.id}                                   |
   .first-row
     .info.pull-left
       %div
@@ -14,17 +19,20 @@
           %span.js-github-status{href: "#", class: issue.github_status}= issue.github_status
         .item.pull-left
           %span{title: t('views.issues.estimated.long')}= "#{t('views.issues.estimated.short')}:"
-          %strong.capitalize
-            - if issue.estimated_hours
-              = issue.estimated_hours
-            - else
-              = t('views.issues.unestimated')
+          %strong.js-eh.capitalize
+            = (issue.estimated_hours) ? issue.estimated_hours : t('views.issues.unestimated')
+          %input.js-edit-eh{style: 'display: none;', value: (issue.estimated_hours) ? issue.estimated_hours : 0, type: 'number', step: '0.5', min: 0}
         .item.pull-left
           %span{title: t('views.issues.worked.long')}= "#{t('views.issues.worked.short')}:"
-          %strong= issue.worked_hours
+          %strong.js-wh= issue.worked_hours
+          %input.js-edit-wh{style: 'display: none;', value: issue.worked_hours, type: 'number', step: '0.5', min: 0}
     .pull-left.edit
       %a.btn.btn-small.js-edit{href:'#', title: t('views.issues.edit')}
         %i.icon-edit
+      %a.btn.btn-small.btn-success.js-save{href:'#', title: t('views.issues.save'), style: 'display: none;'}
+        %i.icon-ok
+      %a.btn.btn-small.btn-danger.js-cancel{href:'#', title: t('views.issues.cancel'), style: 'display: none;'}
+        %i.icon-remove
   
   .dates
     .pull-left

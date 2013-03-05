@@ -25,6 +25,8 @@ en:
         long: 'Worked hours'
       unestimated: 'unestimated'
       edit: 'Edit issue'
+      save: 'Save issue'
+      cancel: 'Cancel'
       status_: 'Status'
       github_status: 'Github status'
       status:

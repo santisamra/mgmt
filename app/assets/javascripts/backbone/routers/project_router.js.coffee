@@ -17,15 +17,16 @@ class ProjectRouter extends Backbone.Router
 
   index: -> 
     user = @github.getUser()
-    user.orgRepos(@organization, _onOrgRepoReponse)
+    user.orgRepos(@organization, @_onOrgRepoReponse)
 
   show: (project)->
-    issues = @github.getIssues(@organization, project)
-    issues.list({}, _onIssuesResponse)
+    @project = project
+    issues = @github.getIssues(@organization, @project)
+    issues.list({}, @_onIssuesResponse)
 
   # Private methods
 
-  _onOrgRepoReponse = (error, projects) ->
+  _onOrgRepoReponse: (error, projects) =>
     if error
       alert("There was an error fetching the projects repositories from github")
       return
@@ -43,13 +44,13 @@ class ProjectRouter extends Backbone.Router
     publicProjects.render()
     privateProjects.render()
 
-  _onIssuesResponse = (error, issues) ->
+  _onIssuesResponse: (error, issues) =>
     if error
       alert("There was an error fetching the issues")
       return
 
-    console.log(issues)
     issueCollection = new IssueCollectionView
+      project: @project
       model: issues
       el: $("#issues")
     issueCollection.render()

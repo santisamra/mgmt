@@ -11,6 +11,7 @@ gem 'devise'
 gem 'omniauth'
 gem 'omniauth-github'
 gem 'rails-backbone'
+gem 'inherited_resources'
 
 group :assets do
   gem 'coffee-rails', '~> 3.2.1'

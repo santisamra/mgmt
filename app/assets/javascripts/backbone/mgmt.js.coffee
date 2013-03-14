@@ -11,5 +11,6 @@ window.Mgmt =
   Views: {}
 
 $ ->
+  new Mgmt.Views.AlertView(el: '.js-alert')
   new Mgmt.Routers.ProjectRouter()
   Backbone.history.start(pushState: true)

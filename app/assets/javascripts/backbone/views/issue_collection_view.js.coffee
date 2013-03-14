@@ -53,7 +53,9 @@ class IssueView extends Backbone.View
   # Callbacks
 
   onSaveError: (model, xhr, options) =>
-    alert("There was an error!")
+    Backbone.trigger('alert:message',
+      message: "There was an error"
+    )
 
 
   # View Methods

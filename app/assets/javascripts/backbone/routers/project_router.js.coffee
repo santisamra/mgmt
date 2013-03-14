@@ -28,7 +28,9 @@ class ProjectRouter extends Backbone.Router
 
   _onOrgRepoReponse: (error, projects) =>
     if error
-      alert("There was an error fetching the projects repositories from github")
+      Backbone.trigger('alert:message',
+        message: "There was an error fetching the projects repositories from github"
+      )
       return
     
     publicProjects = new ProjectCollectionView
@@ -46,7 +48,9 @@ class ProjectRouter extends Backbone.Router
 
   _onIssuesResponse: (error, issues) =>
     if error
-      alert("There was an error fetching the issues")
+      Backbone.trigger('alert:message',
+        message: "There was an error fetching the issues"
+      )
       return
 
     issueCollection = new IssueCollectionView

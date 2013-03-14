@@ -1,7 +1,6 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
-require_relative 'configuration'
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
@@ -61,10 +60,6 @@ module Mgmt
     config.assets.version = '1.0'
 
     # Github
-    config.github = ::Configuration.new('.github.yml') do
-      base_local_path Rails.root
-      base_global_path '~/'
-      prefix 'github'
-    end
+    AppConfiguration.for(:github)
   end
 end

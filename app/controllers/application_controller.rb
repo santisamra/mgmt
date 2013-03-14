@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   protected
   
     def organization_name
-      Rails.application.config.github['organization']
+      AppConfiguration[:github].organization
     end
 
 end

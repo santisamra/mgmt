@@ -3,7 +3,7 @@ site :opscode
 # External cookbooks
 cookbook 'apt'
 cookbook 'database'
-cookbook 'rbenv'
+cookbook 'rbenv', git: 'git://github.com/fnichol/chef-rbenv', branch: 'v0.7.2'
 cookbook 'imagemagick'
 
 # Local cookbooks

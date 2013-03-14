@@ -1,6 +1,8 @@
+default['user']                                   = 'vagrant'
+
 # RBEnv
-default['rbenv']['group_users']                   = %w(vagrant)
 default['rbenv']['owner']                         = 'vagrant'
+default['rbenv']['user_installs']                 = [{ 'user' => default['rbenv']['owner']}]
 
 # PostgreSQL
 default['postgresql']['database']['environments'] = %w(development test production)

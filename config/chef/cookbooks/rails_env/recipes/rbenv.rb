@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: rails_env
-# Recipe:: default
+# Recipe:: rbenv
 #
 #   Copyright 2013 Wolox S.A.
 #
@@ -16,8 +16,24 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
-include_recipe "rails_env::setup"
-include_recipe "rails_env::packages"
-include_recipe "rails_env::rbenv"
-include_recipe "rails_env::postgres"
-include_recipe "rails_env::image_magick"
+include_recipe 'ruby_build'
+include_recipe 'rbenv::user_install'
+
+version     = node['ruby']['version']
+rbenv_user  = node['rbenv']['owner']
+
+rbenv_ruby version do
+  user rbenv_user
+  action :install
+end
+
+rbenv_global version do
+  user rbenv_user
+  action :create
+end
+
+rbenv_gem "bundler" do
+  rbenv_version   version
+  user rbenv_user
+  action :install
+end

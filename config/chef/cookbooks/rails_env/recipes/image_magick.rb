@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: rails_env
-# Recipe:: default
+# Recipe:: image_magick
 #
 #   Copyright 2013 Wolox S.A.
 #
@@ -16,8 +16,5 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
-include_recipe "rails_env::setup"
-include_recipe "rails_env::packages"
-include_recipe "rails_env::rbenv"
-include_recipe "rails_env::postgres"
-include_recipe "rails_env::image_magick"
+include_recipe "imagemagick"
+include_recipe "imagemagick::devel"

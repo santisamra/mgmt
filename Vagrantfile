@@ -6,19 +6,21 @@ Vagrant::Config.run do |config|
   config.vm.box = "precise64"
   config.vm.box_url = "http://files.vagrantup.com/precise64.box"
 
+  # Network
   config.vm.forward_port 3000, 3000
+  config.vm.share_folder("v-root", "/vagrant", ".", :nfs => true)
+  config.vm.network :hostonly, "192.168.50.4"
 
+  # Provisioning
   config.vm.provision :chef_solo do |chef|
     chef.add_recipe "rails_env"
     chef.json = {
       ruby: {
-        version: '1.9.3-p327'
+        version: '1.9.3-p392'
       },
       postgresql: {
         database: {
-          user: 'mgmt',
-          password: 'mgmt',
-          base_name: 'mgmt'
+          base: 'mgmt'
         },
         password: {
           postgres: 'postgres'

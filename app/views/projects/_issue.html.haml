@@ -3,7 +3,8 @@
                    'data-type' => issue.issue_type,                         | 
                    'data-estimated' => "#{!issue.estimated_hours.nil?}",    |
                    'data-github-status' => issue.github_status,             |
-                   'data-id' => issue.id}                                   |
+                   'data-id' => issue.id,                                   |
+                   'class' => issue.status}                                 |
   .first-row
     .info.pull-left
       %div
@@ -12,9 +13,12 @@
           %span.js-issue-title= t('views.issues.loading.title')
       %div
         .item.pull-left
-          %select.status-switch
+          %select.status-switch.js-status
             - Issue::STATUS.each do |status|
-              %option{value: status}= t("views.issues.status.#{status}")
+              - if status == issue.status
+                %option{value: status, selected: 'selected'}= t("views.issues.status.#{status}")
+              - else
+                %option{value: status}= t("views.issues.status.#{status}")
         .item.pull-left
           %span.js-github-status{href: "#", class: issue.github_status}= issue.github_status
         .item.pull-left

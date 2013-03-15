@@ -5,8 +5,9 @@ Issue = window.Mgmt.Models.Issue
 class IssueView extends Backbone.View
 
   events:
-    "change .js-eh" : "updateEstimatedHours"
-    "change .js-wh" : "updateWorkedHours"
+    "change .js-eh"       : "updateEstimatedHours"
+    "change .js-wh"       : "updateWorkedHours"
+    "change .js-status"   : "updateStatus"
 
   initialize: (options) ->
     @model = new Issue(github: @model, project: options.project)
@@ -17,6 +18,13 @@ class IssueView extends Backbone.View
 
   # Event Handlers
 
+  updateStatus: (event) ->
+    status = $(event.target).find("option:selected").val()
+    @model.set('status', status)
+    @model.save({}, error: @onStatusSaveError)
+    @$el.removeClass("accepted not_started rejected finished delivered started")
+    @$el.addClass(status)
+
   updateEstimatedHours: (event) ->
     @model.set('estimated_hours', $(event.target).val())
     @model.save({}, error: @onEstimatedHoursSaveError)
@@ -25,6 +33,12 @@ class IssueView extends Backbone.View
     @model.updateWorkedHours($(event.target).val())
 
   # Callbacks
+
+  onStatusSaveError: (jqXHR, textStatus, errorThrown) =>
+    Backbone.trigger('alert:message',
+      title: 'Error!'
+      message: "There was an error saving the status."
+    )
 
   onWorkedHoursSaveError: (jqXHR, textStatus, errorThrown) =>
     Backbone.trigger('alert:message',

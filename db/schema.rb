@@ -11,13 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130303225659) do
+ActiveRecord::Schema.define(:version => 20130314192721) do
 
   create_table "issues", :force => true do |t|
     t.string   "status",          :default => "not_started"
     t.string   "issue_type",      :default => "feature"
     t.decimal  "estimated_hours"
-    t.decimal  "worked_hours",    :default => 0.0
     t.integer  "number"
     t.integer  "project_id"
     t.string   "github_status"
@@ -56,5 +55,16 @@ ActiveRecord::Schema.define(:version => 20130303225659) do
   end
 
   add_index "users", ["provider", "uid"], :name => "index_users_on_provider_and_uid", :unique => true
+
+  create_table "worked_hours_entries", :force => true do |t|
+    t.decimal "amount"
+    t.integer "user_id"
+    t.integer "issue_id"
+    t.date    "date"
+  end
+
+  add_index "worked_hours_entries", ["date"], :name => "index_worked_hours_entries_on_date"
+  add_index "worked_hours_entries", ["issue_id"], :name => "index_worked_hours_entries_on_issue_id"
+  add_index "worked_hours_entries", ["user_id"], :name => "index_worked_hours_entries_on_user_id"
 
 end

@@ -10,9 +10,12 @@ class AlertView extends Backbone.View
     @$('.js-title').html(options.title)
     @$('.js-message').html(options.message)
     @$el.show()
+    setTimeout(=>
+      @$el.fadeOut('slow')
+    , 4000)
 
   hideAlert: (event) ->
-    @$el.hide()
+    @$el.fadeOut('slow')
 
 # Export
 

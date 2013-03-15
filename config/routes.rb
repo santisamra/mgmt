@@ -1,9 +1,17 @@
 Mgmt::Application.routes.draw do
 
-  devise_for :users, controllers: { omniauth_callbacks: "users/callbacks" }
+  devise_for :users, controllers: { 
+    omniauth_callbacks: "users/callbacks",
+    registrations: "users/registrations", 
+    passwords: "users/passwords"
+  }
 
   resources :projects, only: [:index, :show] do
-    resources :issues, only: [:update]
+    resources :issues, only: [:update] do
+      member do
+        post :log_worked_hours
+      end
+    end
   end
   
   root :to => 'home#index'

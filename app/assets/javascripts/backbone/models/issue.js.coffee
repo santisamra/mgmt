@@ -9,6 +9,22 @@ class Issue extends Backbone.Model
 
   initialize: (options)->
     @project = options.project
+    @github = options.github
+
+  updateWorkedHours: (workedHours) ->
+    old = parseFloat(@get('worked_hours'))
+    diff = workedHours - old
+    $.ajax(
+      type: 'POST'
+      url: "#{@url()}/log_worked_hours"
+      contentType: "application/json; charset=utf-8"
+      data: JSON.stringify(worked_hours: diff)
+      success: =>
+        @set('worked_hours', workedHours)
+        @trigger('workedHoursSuccessfullSave')
+      error: (jqXHR, textStatus, errorThrown) =>
+        @trigger('workedHoursSaveError', jqXHR, textStatus, errorThrown)
+    )
 
 # Exports
 

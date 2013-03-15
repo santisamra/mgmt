@@ -5,77 +5,54 @@ Issue = window.Mgmt.Models.Issue
 class IssueView extends Backbone.View
 
   events:
-    "click .js-edit"    : "edit"
-    "click .js-save"    : "save"
-    "click .js-cancel"  : "cancel"
+    "change .js-eh" : "updateEstimatedHours"
+    "change .js-wh" : "updateWorkedHours"
 
   initialize: (options) ->
-    @project = options.project
-    @id = @$el.data('id')
-    @number = @$el.data('number')
-    @status = @$el.data('status')
-    @type = @$el.data('type')
-
-  createIssue: (estimatedHours, workedHours) =>
-    issue = new Issue
-      estimated_hours: estimatedHours
-      worked_hours: workedHours
-    issue.project = @project
-    issue.id = @id
-    issue
+    @model = new Issue(github: @model, project: options.project)
+    @model.number = @$el.data('number')
+    @model.status = @$el.data('status')
+    @model.id = @$el.data('id')
+    @model.on('workedHoursSaveError', @onWorkedHoursSaveError)
 
   # Event Handlers
 
-  edit: (event) ->
-    event.preventDefault()
-    @setEditControlsMode(true)
+  updateEstimatedHours: (event) ->
+    @model.set('estimated_hours', $(event.target).val())
+    @model.save({}, error: @onEstimatedHoursSaveError)
 
-  save: (event) ->
-    event.preventDefault()
-    @setEditControlsMode(false)
-    
-    estimatedHours = @$('.js-edit-eh').val()
-    workedHours = @$('.js-edit-wh').val()
-    @$('.js-eh').html(estimatedHours)
-    @$('.js-wh').html(workedHours)
-
-    issue = @createIssue(estimatedHours, workedHours)
-    issue.save null, error: @onSaveError
-
-
-  cancel: (event) ->
-    event.preventDefault()
-    @setEditControlsMode(false)
-
-    @$('.js-edit-eh').val(@$('.js-eh').html())
-    @$('.js-edit-wh').val(@$('.js-wh').html())
+  updateWorkedHours: (event) ->
+    @model.updateWorkedHours($(event.target).val())
 
   # Callbacks
 
-  onSaveError: (model, xhr, options) =>
+  onWorkedHoursSaveError: (jqXHR, textStatus, errorThrown) =>
     Backbone.trigger('alert:message',
-      message: "There was an error"
+      title: 'Error!'
+      message: "There was an error saving the worked hours."
+    )
+
+  onEstimatedHoursSaveError: (jqXHR, textStatus, errorThrown) =>
+    Backbone.trigger('alert:message',
+      title: 'Error!'
+      message: "There was an error saving the estimated hours."
     )
 
 
   # View Methods
 
   render: ->
-    title = @model.title
-    @$('.js-issue-title').attr("title", title)
-    title = title.substring(0, 48) + " ..." if title.length > 49
-    @$('.js-issue-title').html(title)
-    @$('.js-issue-link').attr('href', @model.html_url)
+    @$('.js-issue-title').attr("title", @model.github.title)
+    @$('.js-issue-title').html(@issue_title)
+    @$('.js-issue-link').attr('href', @model.github.html_url)
     @$('.js-timeago').timeago()
+    @model.set('estimated_hours', @$('.js-eh').val())
+    @model.set('worked_hours', @$('.js-wh').val())
 
-  setEditControlsMode: (edit) ->
-    @$(".js-edit-eh")[if edit then 'show' else 'hide']()
-    @$(".js-edit-wh")[if edit then 'show' else 'hide']()
-    @$(".js-save")[if edit then 'show' else 'hide']()
-    @$(".js-cancel")[if edit then 'show' else 'hide']()
-    @$(".js-eh")[if edit then 'hide' else 'show']()
-    @$(".js-wh")[if edit then 'hide' else 'show']()
-    @$(".js-edit")[if edit then 'hide' else 'show']()
+  issue_title: =>
+    title = @model.github.title
+    title = title.substring(0, 48) + " ..." if title.length > 49
+    title
 
 class IssueCollectionView extends Backbone.View
 

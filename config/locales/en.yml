@@ -2,6 +2,10 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  models:
+    worked_hours_entry:
+      future_date: 'Date cannot be in the future'
+
   views:
     navbar:
       projects: "Projects"

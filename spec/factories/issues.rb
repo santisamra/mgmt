@@ -2,10 +2,10 @@
 
 FactoryGirl.define do
   factory :issue do
-    status "MyString"
-    type ""
-    estimated_hours "9.99"
-    worked_hours "9.99"
-    number 1
+    issue_type "feature"
+    status "not_started"
+    estimated_hours "5"
+    github_status "open"
+    sequence(:number) { |n| n }
   end
 end

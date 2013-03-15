@@ -12,6 +12,7 @@ gem 'omniauth'
 gem 'omniauth-github'
 gem 'rails-backbone', '~> 0.9.10'
 gem 'inherited_resources'
+gem 'strong_parameters'
 gem 'app_configuration'
 
 group :assets do

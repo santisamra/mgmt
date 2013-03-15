@@ -1,4 +1,6 @@
 class Issue < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
+  
   STATUS = %w(
     not_started
     started
@@ -23,5 +25,12 @@ class Issue < ActiveRecord::Base
   # Associations
 
   belongs_to :project
+  has_many :worked_hours_entries
+
+  # Instance Methods
+
+  def worked_hours
+    worked_hours_entries.reduce(0) { |sum, entry|  sum + entry.amount }
+  end
 
 end

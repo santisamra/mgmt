@@ -20,6 +20,13 @@
               - else
                 %option{value: status}= t("views.issues.status.#{status}")
         .item.pull-left
+          %select.type-switch.js-type
+            - Issue::TYPE.each do |type|
+              - if type == issue.issue_type
+                %option{value: type, selected: 'selected'}= t("views.issues.type.#{type}")
+              - else
+                %option{value: type}= t("views.issues.type.#{type}")
+        .item.pull-left
           %span.js-github-status{href: "#", class: issue.github_status}= issue.github_status
         .item.pull-left
           %span{title: t('views.issues.estimated.long')}= "#{t('views.issues.estimated.short')}:"

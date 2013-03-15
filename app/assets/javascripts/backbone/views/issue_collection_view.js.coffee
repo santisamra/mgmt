@@ -8,6 +8,7 @@ class IssueView extends Backbone.View
     "change .js-eh"       : "updateEstimatedHours"
     "change .js-wh"       : "updateWorkedHours"
     "change .js-status"   : "updateStatus"
+    "change .js-type"     : "updateType"
 
   initialize: (options) ->
     @model = new Issue(github: @model, project: options.project)
@@ -25,6 +26,11 @@ class IssueView extends Backbone.View
     @$el.removeClass("accepted not_started rejected finished delivered started")
     @$el.addClass(status)
 
+  updateType: (event) ->
+    type = $(event.target).find("option:selected").val()
+    @model.set('issue_type', type)
+    @model.save({}, error: @onTypeSaveError)
+
   updateEstimatedHours: (event) ->
     @model.set('estimated_hours', $(event.target).val())
     @model.save({}, error: @onEstimatedHoursSaveError)
@@ -33,6 +39,12 @@ class IssueView extends Backbone.View
     @model.updateWorkedHours($(event.target).val())
 
   # Callbacks
+
+  onTypeSaveError: (jqXHR, textStatus, errorThrown) =>
+    Backbone.trigger('alert:message',
+      title: 'Error!'
+      message: "There was an error saving the type."
+    )
 
   onStatusSaveError: (jqXHR, textStatus, errorThrown) =>
     Backbone.trigger('alert:message',

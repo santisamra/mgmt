@@ -33,6 +33,10 @@ en:
       cancel: 'Cancel'
       status_: 'Status'
       github_status: 'Github status'
+      type:
+        feature: 'feature'
+        chore: 'chore'
+        bug: 'bug'
       status:
         not_started: 'Not started'
         started: 'Started'

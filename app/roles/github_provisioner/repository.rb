@@ -10,12 +10,7 @@ module GithubProvisioner
     def provide_issues!
       issues = @github.issues.list(user: organization, repo: name)
       self.issues_attributes = issues.map do |issue|
-        { 
-          number: issue.number,
-          github_status: issue.state,
-          created_at: issue.created_at,
-          updated_at: issue.updated_at
-        }
+        GithubProvisioner::Issue.extract_attributes(issue)
       end
       save!
     end

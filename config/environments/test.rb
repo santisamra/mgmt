@@ -34,4 +34,8 @@ Mgmt::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+
+  # Github
+  config.github = OpenStruct.new
+  config.github.subscribe_to_events = false
 end

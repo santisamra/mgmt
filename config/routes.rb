@@ -6,6 +6,8 @@ Mgmt::Application.routes.draw do
     passwords: "users/passwords"
   }
 
+  post 'github/notifications/:organization/:name/issues' => "github_notifications#issues", as: 'issues_github_notifications'
+
   resources :projects, only: [:index, :show] do
     resources :issues, only: [:update] do
       member do

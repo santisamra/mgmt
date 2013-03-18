@@ -5,10 +5,17 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @project = project
+    @project = Project.where(project_attributes).first
     unless @project
-      @project = GithubProvisioner::Repository.new(current_user.github, create_project)
-      @project.provide_issues!
+      # XXX This should be done async and the web page shoud check
+      # against the server to know when the project has been created.
+      callback_url = issues_github_notifications_url(organization_name, params[:id])
+      @project = CreatingNewProjectContext.new({
+        user: current_user, 
+        project_attributes: project_attributes, 
+        notifications_callback_url: callback_url,
+        subscribe_to_events: Rails.application.config.github.subscribe_to_events
+      }).create
     end
   end
 
@@ -19,14 +26,6 @@ class ProjectsController < ApplicationController
         organization: organization_name,
         name: params[:id]
       }
-    end
-
-    def project
-      Project.where(project_attributes).first
-    end
-
-    def create_project
-      Project.create!(project_attributes)
     end
 
 end

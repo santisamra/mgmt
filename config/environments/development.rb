@@ -35,4 +35,8 @@ Mgmt::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
+  # Github
+  config.github = OpenStruct.new
+  config.github.subscribe_to_events = false
+
 end

@@ -1,0 +1,77 @@
+#!/bin/bash
+
+remote='heroku'
+branch='master'
+backup_db=true
+dowload_backup=false
+app='picstants'
+
+usage() {
+cat <<EOF
+    Usage: deploy <[options]>
+    Options:
+        -r  Sets the remote git repository (default heroku).
+        -b  Sets the local branch to be pushed (default master).
+        -x  Do not backup database before deploy.
+        -d  Downloads last database backup after deploy.
+        -a  Sets the heroku app to be use (default picstants).
+        -h  Prints this help message.
+
+EOF
+}
+
+# Command line arguments parsing
+while getopts ":r:b:a:xdh" opt; do
+  case $opt in
+    r ) remote=$OPTARG      ;;
+    b ) branch=$OPTARG      ;;
+    x ) backup_db=false     ;;
+    d ) dowload_backup=true ;;
+    a ) app=$OPTARG         ;;
+    h ) 
+        usage
+        exit 0 
+        ;;
+    \?) 
+        echo "Invalid option: -$OPTARG" >&2
+        usage
+        exit 1
+        ;;
+  esac
+done
+
+########################## DEPLOY #######################################
+
+set -e
+
+git checkout -b deploy $branch
+
+# Run tests
+echo "Running tests ..."
+if `vagrant ssh -c "cd /vagrant && bundle exec rspec" > /dev/null 2> /dev/null` 
+then
+  echo "All test have passed!"
+else
+  echo "ERROR!"
+  echo "  There are failing tests!. Aborting deployment."
+  git checkout $branch
+  git branch -D deploy
+  exit 1
+fi
+
+# Assets precompile
+echo "Precompiling assets"
+vagrant ssh -c "cd /vagrant && RAILS_ENV=production bundle exec rake assets:precompile"
+git add .
+git commit -a -m"Assets precompile"
+
+# Pushing to heroku
+echo "Deploying branch $branch to $remote ..."
+git push $remote deploy:master -f
+
+# Deletes deploy branch
+git checkout $branch
+git branch -D deploy
+
+# Run migrations
+heroku run rake db:migrate --app $app

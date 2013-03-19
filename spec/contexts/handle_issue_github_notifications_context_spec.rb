@@ -15,8 +15,8 @@ describe HandleIssueGithubNotificationContext do
 
       before(:all) do 
         create(:issue, project: project)
-        issue[:number] = Issue.first.number
-        issue[:state] = 'closed'
+        issue['number'] = Issue.first.number
+        issue['state'] = 'closed'
       end
 
       it "updates the issue github_status attribute" do
@@ -30,7 +30,7 @@ describe HandleIssueGithubNotificationContext do
     context "when the issue does not exists" do
 
       before(:all) do 
-        issue[:state] = 'open'
+        issue['state'] = 'open'
       end
 
       it "creates a new issue" do

@@ -1,0 +1,12 @@
+language: ruby
+rvm:
+  - 2.0.0
+  - ruby-head
+services: 
+  - postgresql
+env:
+  - DB=postgres
+before_script:
+  - psql -c 'DROP DATABASE IF EXISTS mgmt_test;' -U postgres
+  - psql -c 'create database mgmt_test;' -U postgres
+script: bundle exec rspec spec

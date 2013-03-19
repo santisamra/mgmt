@@ -9,6 +9,12 @@ require 'coveralls'
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
+# Database configuration
+configs = YAML.load_file(File.join(Rails.root, 'config', 'database.yml'))
+ActiveRecord::Base.configurations = configs
+db_name = ENV['DB'] || 'test'
+ActiveRecord::Base.establish_connection(db_name)
+ActiveRecord::Base.default_timezone = :utc
 
 Coveralls.wear!
 RSpec.configure do |config|

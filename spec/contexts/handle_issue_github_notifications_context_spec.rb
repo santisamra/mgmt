@@ -13,16 +13,17 @@ describe HandleIssueGithubNotificationContext do
 
     context "when the issue already exists" do
 
+      let(:mgmt_issue) { create(:issue, project: project) }
       before(:all) do 
-        create(:issue, project: project)
-        issue['number'] = Issue.first.number
+        issue['number'] = mgmt_issue.number
         issue['state'] = 'closed'
       end
 
       it "updates the issue github_status attribute" do
         context = HandleIssueGithubNotificationContext.new(issue, project)
         context.handle_issue
-        Issue.first.github_status.should eq 'closed'
+        mgmt_issue.reload
+        mgmt_issue.github_status.should eq 'closed'
       end
 
     end

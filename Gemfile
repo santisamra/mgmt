@@ -16,6 +16,7 @@ gem 'strong_parameters'
 gem 'app_configuration'
 gem 'unicorn'
 gem 'foreman'
+gem 'coveralls', require: false
 
 group :assets do
   gem 'coffee-rails', '~> 3.2.1'

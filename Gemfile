@@ -14,6 +14,8 @@ gem 'rails-backbone', '~> 0.9.10'
 gem 'inherited_resources'
 gem 'strong_parameters'
 gem 'app_configuration'
+gem 'unicorn'
+gem 'foreman'
 
 group :assets do
   gem 'coffee-rails', '~> 3.2.1'

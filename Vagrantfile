@@ -16,7 +16,7 @@ Vagrant::Config.run do |config|
     chef.add_recipe "rails_env"
     chef.json = {
       ruby: {
-        version: '1.9.3-p392'
+        version: '2.0.0-p0'
       },
       postgresql: {
         database: {

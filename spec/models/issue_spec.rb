@@ -10,7 +10,7 @@ describe Issue do
     let(:user1) { create(:user) }
     let(:user2) { create(:user) }
 
-    before(:all) do 
+    before(:each) do 
       create(:worked_hours_entry, user: user1, issue: issue)
       create(:worked_hours_entry, user: user2, issue: issue)
     end 

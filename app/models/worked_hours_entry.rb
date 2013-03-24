@@ -1,5 +1,4 @@
 class WorkedHoursEntry < ActiveRecord::Base
-  include ActiveModel::ForbiddenAttributesProtection
 
   # Associations
 

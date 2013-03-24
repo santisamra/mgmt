@@ -23,7 +23,7 @@ describe WorkedHoursLogger do
 
     context "when the user has logged hours for the issue" do
 
-      before(:all) { logger.log_worked_hours(2, issue) }
+      before(:each) { logger.log_worked_hours(2, issue) }
 
       it "updates the existing WorkedHoursEntry" do
         expect { logger.log_worked_hours(1, issue) }.to change { WorkedHoursEntry.where(issue_id: issue.id).first.amount }.by 1

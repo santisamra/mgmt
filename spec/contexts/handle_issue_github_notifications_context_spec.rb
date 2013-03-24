@@ -14,7 +14,7 @@ describe HandleIssueGithubNotificationContext do
     context "when the issue already exists" do
 
       let(:mgmt_issue) { create(:issue, project: project) }
-      before(:all) do 
+      before(:each) do 
         issue['number'] = mgmt_issue.number
         issue['state'] = 'closed'
       end
@@ -30,7 +30,7 @@ describe HandleIssueGithubNotificationContext do
 
     context "when the issue does not exists" do
 
-      before(:all) do 
+      before(:each) do 
         issue['state'] = 'open'
       end
 

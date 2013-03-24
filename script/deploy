@@ -61,7 +61,7 @@ fi
 
 # Assets precompile
 echo "Precompiling assets"
-vagrant ssh -c "cd /vagrant && RAILS_ENV=production bundle exec rake assets:precompile"
+vagrant ssh -c "cd /vagrant && bundle exec rake assets:precompile" > /dev/null 2> /dev/null
 git add .
 git commit -a -m"Assets precompile"
 

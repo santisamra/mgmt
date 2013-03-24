@@ -1,12 +1,11 @@
 language: ruby
 rvm:
   - 2.0.0
-  - ruby-head
 services: 
   - postgresql
-env:
-  - DB=postgres
 before_script:
+  - cp config/database.travisci.yml config/database.yml
   - psql -c 'DROP DATABASE IF EXISTS mgmt_test;' -U postgres
   - psql -c 'create database mgmt_test;' -U postgres
+  - bundle exec rake db:migrate test:prepare
 script: bundle exec rspec spec

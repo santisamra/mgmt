@@ -9,33 +9,33 @@
 # from scratch. The latter is a flawed and unsustainable approach (the more migrations
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
-# It's strongly recommended to check this file into your version control system.
+# It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130314192721) do
+ActiveRecord::Schema.define(version: 20130314192721) do
 
-  create_table "issues", :force => true do |t|
-    t.string   "status",          :default => "not_started"
-    t.string   "issue_type",      :default => "feature"
+  create_table "issues", force: true do |t|
+    t.string   "status",          default: "not_started"
+    t.string   "issue_type",      default: "feature"
     t.decimal  "estimated_hours"
     t.integer  "number"
     t.integer  "project_id"
     t.string   "github_status"
-    t.datetime "created_at",                                 :null => false
-    t.datetime "updated_at",                                 :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "issues", ["project_id"], :name => "index_issues_on_project_id"
+  add_index "issues", ["project_id"], name: "index_issues_on_project_id"
 
-  create_table "projects", :force => true do |t|
+  create_table "projects", force: true do |t|
     t.string   "organization"
     t.string   "name"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "projects", ["organization", "name"], :name => "index_projects_on_organization_and_name", :unique => true
+  add_index "projects", ["organization", "name"], name: "index_projects_on_organization_and_name", unique: true
 
-  create_table "users", :force => true do |t|
+  create_table "users", force: true do |t|
     t.string   "email"
     t.string   "name"
     t.string   "login"
@@ -43,28 +43,28 @@ ActiveRecord::Schema.define(:version => 20130314192721) do
     t.string   "organization_avatar"
     t.string   "gravatar_id"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",       :default => 0
+    t.integer  "sign_in_count",       default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.string   "provider"
     t.string   "uid"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "users", ["provider", "uid"], :name => "index_users_on_provider_and_uid", :unique => true
+  add_index "users", ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true
 
-  create_table "worked_hours_entries", :force => true do |t|
+  create_table "worked_hours_entries", force: true do |t|
     t.decimal "amount"
     t.integer "user_id"
     t.integer "issue_id"
     t.date    "date"
   end
 
-  add_index "worked_hours_entries", ["date"], :name => "index_worked_hours_entries_on_date"
-  add_index "worked_hours_entries", ["issue_id"], :name => "index_worked_hours_entries_on_issue_id"
-  add_index "worked_hours_entries", ["user_id"], :name => "index_worked_hours_entries_on_user_id"
+  add_index "worked_hours_entries", ["date"], name: "index_worked_hours_entries_on_date"
+  add_index "worked_hours_entries", ["issue_id"], name: "index_worked_hours_entries_on_issue_id"
+  add_index "worked_hours_entries", ["user_id"], name: "index_worked_hours_entries_on_user_id"
 
 end

@@ -24,11 +24,3 @@ production:
   pool: 5
   username: mgmt
   password: mgmt
-
-travisci:
-  adapter: postgresql
-  database: mgmt_test
-  username: postgres
-
-env:
-  - DB=postgres

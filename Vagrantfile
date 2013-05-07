@@ -1,17 +1,16 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
-require 'berkshelf/vagrant'
 
-Vagrant::Config.run do |config|
+Vagrant.configure("2") do |config|
   config.vm.box = "precise64"
   config.vm.box_url = "http://files.vagrantup.com/precise64.box"
 
-  # Network
-  config.vm.forward_port 3000, 3000
-  config.vm.share_folder("v-root", "/vagrant", ".", :nfs => true)
-  config.vm.network :hostonly, "192.168.50.4"
+  config.vm.synced_folder ".", "/vagrant", :nfs => true, id: "vagrant-root"
+  config.vm.network :forwarded_port, guest: 3000, host: 3000
+  config.vm.network :private_network, ip: "192.168.50.4"
 
-  # Provisioning
+  config.berkshelf.enabled = true
+
   config.vm.provision :chef_solo do |chef|
     chef.add_recipe "rails_env"
     chef.json = {

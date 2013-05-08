@@ -16,4 +16,10 @@ class Project < ActiveRecord::Base
     Project.where(organization: organization, name: name).first
   end
 
+  # Instance Methods
+
+  def open_issues
+    issues.where(github_status: :open)
+  end
+
 end

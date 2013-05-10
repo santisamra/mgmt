@@ -8,6 +8,8 @@ class Project < ActiveRecord::Base
   # Associations
 
   has_many :issues
+  has_many :teams
+  has_many :users, through: :teams, uniq: true
   accepts_nested_attributes_for :issues, allow_destroy: true
 
   # Class Methods

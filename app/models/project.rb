@@ -10,6 +10,7 @@ class Project < ActiveRecord::Base
   has_many :issues
   has_many :milestones
   accepts_nested_attributes_for :issues, allow_destroy: true
+  accepts_nested_attributes_for :milestones
 
   # Class Methods
 

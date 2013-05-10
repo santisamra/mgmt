@@ -11,20 +11,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130510141726) do
+ActiveRecord::Schema.define(version: 20130510145102) do
 
   create_table "issues", force: true do |t|
-    t.string   "status",          default: "not_started"
-    t.string   "issue_type",      default: "feature"
+    t.string   "status",           default: "not_started"
+    t.string   "issue_type",       default: "feature"
     t.decimal  "estimated_hours"
     t.integer  "number"
     t.integer  "project_id"
     t.string   "github_status"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "milestone_number"
   end
 
   add_index "issues", ["project_id"], name: "index_issues_on_project_id", using: :btree
+
+  create_table "milestones", force: true do |t|
+    t.integer  "number"
+    t.date     "start_date"
+    t.date     "due_date"
+    t.decimal  "estimated_hours"
+    t.decimal  "client_estimated_hours"
+    t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "projects", force: true do |t|
     t.string   "organization"

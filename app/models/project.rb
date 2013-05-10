@@ -10,6 +10,7 @@ class Project < ActiveRecord::Base
   has_many :issues
   has_many :teams
   has_many :users, through: :teams, uniq: true
+  has_many :milestones
   accepts_nested_attributes_for :issues, allow_destroy: true
 
   # Class Methods
@@ -22,6 +23,11 @@ class Project < ActiveRecord::Base
 
   def open_issues
     issues.where(github_status: :open)
+  end
+
+  def current_milestone
+    current_time = DateTime.now
+    milestones.where("start_date <= ? AND due_date >= ?", current_time, current_time).first
   end
 
 end

@@ -19,6 +19,26 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def add_user
+    @project = Project.where(project_attributes).first
+    @user = User.where(login: params[:user]).first
+
+    if @user.nil? || @project.users.include?(@user)
+      render json: {}, status: 404
+    else
+      @project.users << @user
+      render json: @user, status: 200
+    end 
+  end
+
+  def delete_user
+    @project = Project.where(name: params[:id]).first
+    @user = User.where(login: params[:user]).first
+
+    @project.users.delete(@user) unless @user.nil?
+    redirect_to project_path(@project.name)
+  end
+
   private
 
     def project_attributes

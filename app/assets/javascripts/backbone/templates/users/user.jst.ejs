@@ -1,0 +1,19 @@
+<div class="row">
+  <span class="user-image">
+    <img alt="<% user.login %>" src="<%= user.organization_avatar %>" width="30">
+  </span>
+  <span class="user-name">
+    <strong>
+      <%= user.name %>
+    </strong>
+  </span>
+  <span class="user-delete">
+    <form accept-charset="UTF-8" action="/projects/<%= project %>/delete_user" method="post">
+      <div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓">
+        <input name="authenticity_token" type="hidden" value="<%= token %>">
+      </div>
+      <input id="user" name="user" type="hidden" value="<%= user.login %>">
+      <input name="commit" type="submit" value="X" class="btn btn-mini">
+    </form>
+  </span>
+</div>

@@ -18,6 +18,11 @@ Mgmt::Application.routes.draw do
         post :log_worked_hours
       end
     end
+    member do
+      post :add_user
+      post :delete_user
+    end
+
   end
   
   root :to => 'home#index'

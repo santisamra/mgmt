@@ -2,6 +2,7 @@
 
 ProjectCollectionView = window.Mgmt.Views.ProjectCollectionView
 IssueCollectionView = window.Mgmt.Views.IssueCollectionView
+ProjectMemberView = window.Mgmt.Views.ProjectMemberView
 
 class ProjectRouter extends Backbone.Router
 
@@ -23,6 +24,9 @@ class ProjectRouter extends Backbone.Router
     @project = project
     issues = @github.getIssues(@organization, @project)
     issues.list({}, @_onIssuesResponse)
+    projectMemberView = new ProjectMemberView
+        el:$('#users')
+        project: project
 
   # Private methods
 

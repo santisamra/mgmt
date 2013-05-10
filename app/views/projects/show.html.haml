@@ -1,9 +1,20 @@
 %h1.capitalize
   = @project.name
   %a{href: settings_project_url(@project)} settings
-%ul#issues
-  - if @project.current_milestone.nil? 
-    no current milestone
-  - else
-    - @project.current_milestone.issues.each do |issue|
-      = render partial: 'projects/issue', locals: { issue: issue }
+.row
+  .span6
+    %ul#issues
+      - if @project.current_milestone.nil? 
+          no current milestone
+      - else
+        - @project.current_milestone.issues.each do |issue|
+          = render partial: 'projects/issue', locals: { issue: issue }
+  .span3
+  #users.span3
+    #users-list.span3
+      - @project.users.each do |user|
+        = render partial: 'projects/user', locals: { user: user, project: @project }
+    = form_tag add_user_project_path(@project.name), :method => :post, :class => 'js-user-add' do
+      = text_field_tag 'user', nil, :placeholder => 'Enter username...', :id => 'add-user-textfield'
+      = hidden_field_tag 'project', @project.name, :id => 'add-user-project'
+      = submit_tag 'Add', :class => 'btn', :id => 'add-user-btn'

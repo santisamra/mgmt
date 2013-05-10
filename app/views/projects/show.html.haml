@@ -5,7 +5,7 @@
   .span6
     %ul#issues
       - if @project.current_milestone.nil? 
-          no current milestone
+        no current milestone
       - else
         - @project.current_milestone.issues.each do |issue|
           = render partial: 'projects/issue', locals: { issue: issue }

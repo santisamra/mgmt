@@ -60,3 +60,5 @@ en:
       update:
         succeed: 'Changes applied'
         failed: 'Date error'
+      accordion:
+        unassigned: 'Unassigned'

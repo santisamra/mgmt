@@ -25,6 +25,8 @@ class ProjectRouter extends Backbone.Router
     @project = project
     issues = @github.getIssues(@organization, @project)
     issues.list({}, @_onIssuesResponse)
+    milestones = @github.getMilestones(@organization, @project)
+    milestones.list({}, @_onMilestonesResponse)
 
   settings: (project)->
     @project = project

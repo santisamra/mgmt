@@ -29,4 +29,15 @@ class Project < ActiveRecord::Base
     milestones.where("start_date <= ? AND due_date >= ?", current_time, current_time).first
   end
 
+  def backlog
+    map = Hash.new {|h,k| h[k]=Array.new}
+    (issues-current_milestone.issues).each do |i|
+      key = i.milestone_number.nil? ? -1 : i.milestone_number
+      puts "before: key: #{key} map: #{map[key]}"
+      map[key] << i
+      puts "after: key: #{key} map: #{map[key]}"
+    end
+    map
+  end
+
 end

@@ -7,15 +7,16 @@
       - if @project.current_milestone.nil?
         no current milestone
       - else
-        = render partial: 'milestone_title', locals: { milestone: @project.current_milestone }
+        %a.accordion-toggle.js-milestone-title
+          = t('views.milestones.accordion.unassigned')
         - @project.current_milestone.issues.each do |issue|
           .div= render partial: 'projects/issue', locals: { issue: issue }
   .backlog.span6
-    .accordion.milestones
+    .accordion.milestones#milestonesAccordion
       - @project.backlog.each do |number, issues|
-        .accordion-group.milestone.js-milestone{'data-number' => number}
+        .accordion-group.milestone.js-milestone
           .accordion-heading
-          = render partial: 'milestone_title', locals: { milestone: @project.current_milestone }
-          .accordion-body.collapse.in{id: "milestone_#{number}"}
+            = render partial: 'milestone_title', locals: { number: number }
+          .accordion-body.collapse.in{ id: "milestone_#{number}"}
             - issues.each do |issue|
               = render partial: 'projects/issue', locals: { issue: issue }

@@ -28,7 +28,7 @@ class Project < ActiveRecord::Base
 
   def current_milestone
     current_time = DateTime.now
-    milestones.where("start_date <= ? AND due_date >= ?", current_time, current_time).first
+    milestones.where("(start_date is null OR start_date <= ?) AND due_date >= ?", current_time, current_time).first
   end
 
   def backlog

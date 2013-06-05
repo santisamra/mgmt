@@ -1,0 +1,5 @@
+%a.js-milestone-title{"data-target" => "#milestone_#{milestone.number}", "data-toggle" => "collapse", :type => "button"}
+  - if milestone.number>=0
+    = t('views.milestones.loading.title')
+  - else
+    = t('views.milestones.accordion.unassigned')

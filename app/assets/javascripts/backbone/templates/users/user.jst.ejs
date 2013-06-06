@@ -7,8 +7,8 @@
       <%= user.name %>
     </strong>
   </span>
-  <span class="user-delete">
-    <form accept-charset="UTF-8" action="/projects/<%= project %>/delete_user" method="post">
+  <span>
+    <form accept-charset="UTF-8" class="js-user-delete">
       <div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓">
         <input name="authenticity_token" type="hidden" value="<%= token %>">
       </div>

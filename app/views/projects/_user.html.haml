@@ -1,10 +1,8 @@
-/ .row
-/   %span.user-image
-/     = image_tag(user.organization_avatar, :width => 30)
-/   %span.user-name
-/     %strong
-/       = user.name
-/   %span
-/     = form_tag class: 'js-user-add' do
-/       = hidden_field_tag 'user', user.login
-/       = submit_tag 'X', :class => 'btn btn-mini'
+.row{ "data-member-name" => user.login }
+  %span.user-image
+    = image_tag(user.organization_avatar, :width => 30)
+  %span.user-name
+    %strong
+      = user.name
+  %span
+    %button.btn.btn-mini.js-user-delete X

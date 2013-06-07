@@ -3,42 +3,54 @@ ProjectMemberCollection = window.Mgmt.Collections.ProjectMemberCollection
 
 class ProjectMemberView extends Backbone.View
 
-  userTemplate: JST['backbone/templates/users/user']
-
   events:
-    'submit js-user-delete': 'clear'
+    "click .js-user-delete": "clear"
 
   initialize: (options) ->
     @project = options.project
+    @model = new ProjectMember(github: @model, project: @project)
     @token = @$('.user-delete input[name="authenticity_token"]').val()
-    @listenTo(@model, 'destroy', @clear)
+    # @listenTo(@model, 'destroy', @clear)
 
   clear: ->
-    @model.destroy
-
+    debugger
+    console.log("Deleting model")
+    console.log(@model.attributes)
+    @model.destroy()
+    @$el.hide()
 
 class ProjectMemberCollectionView extends Backbone.View
+
+  userTemplate: JST['backbone/templates/users/user']
 
   events:
     'submit .js-user-add':  'create'
 
   initialize: (options) ->
+    @project = options.project
+    self = @
     @col = new ProjectMemberCollection(options.project)
-    @listenTo(@col, 'add', @add)
-    @col.fetch()
-    @input = @.$('add-user-textfield')
+    @col.fetch success: (collection)-> 
+      for member in collection.models
+        self.add(new ProjectMember(member))
 
   create: (e) ->
     e.preventDefault()
-    @col.create({login: @input.val})
-    @input.val('')
+    @input = $('#add-user-textfield').val()
+    @col.create({login: @input}) 
 
   add: (member) ->
-    view = new ProjectMemberView({model: member})
+    debugger
+    view = new ProjectMemberView({model: member, project: @project, el: @$("[data-member-name=#{member.attributes.login}]")})
     $(@el).append(view.render().el)
 
-  # handleAddUserCallback: (data) =>
-  #   @$('#users-list').append(@userTemplate(user: data, project: @project, token: @token))
+  # render: ->
+  #   for member in @model
+  #     projectMemberView = new ProjectMemberView
+  #       project: @project
+  #       model: member
+  #       el: @$("[data-member-name=#{member.login}]")
+  #     projectMemberView.render()
 
 # Exports
 window.Mgmt.Views.ProjectMemberView = ProjectMemberView

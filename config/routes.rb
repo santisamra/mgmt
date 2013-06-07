@@ -23,14 +23,9 @@ Mgmt::Application.routes.draw do
       end
     end
 
-    resources :members, only: [:index] do
-      member do
-        post :delete
-      end
-    end
+    resources :members, only: [:index, :create, :destroy]
   end
 
   root :to => 'home#index'
 
-  post "/projects/:project_id/members" => "members#add"
 end

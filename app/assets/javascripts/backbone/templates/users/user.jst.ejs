@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" data-member-name="<%= user.login %>">
   <span class="user-image">
     <img alt="<% user.login %>" src="<%= user.organization_avatar %>" width="30">
   </span>
@@ -8,12 +8,6 @@
     </strong>
   </span>
   <span>
-    <form accept-charset="UTF-8" class="js-user-delete">
-      <div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓">
-        <input name="authenticity_token" type="hidden" value="<%= token %>">
-      </div>
-      <input id="user" name="user" type="hidden" value="<%= user.login %>">
-      <input name="commit" type="submit" value="X" class="btn btn-mini">
-    </form>
+    <button class="btn btn-mini js-user-delete">X</button>
   </span>
 </div>

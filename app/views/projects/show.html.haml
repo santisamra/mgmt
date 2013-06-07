@@ -1,6 +1,15 @@
 %h1.capitalize
   = @project.name
   %a{href: settings_project_url(@project.name)} settings
+.row-fluid.span12
+  #users.span3
+    #users-list
+      - @project.users.each do |user|
+        = render partial: 'projects/user', locals: { user: user, project: @project }
+    = form_tag project_members_path(@project), :class => 'js-user-add' do
+      = text_field_tag 'user', nil, :placeholder => 'Enter username...', :id => 'add-user-textfield'
+      = hidden_field_tag 'project', @project.name, :id => 'add-user-project'
+      = submit_tag 'Add', :class => 'btn', :id => 'add-user-btn'
 .row-fluid
   .current-milestone.span6
     %ul#issues
@@ -20,13 +29,4 @@
           .accordion-body.collapse.in{ id: "milestone_#{number}"}
             - issues.each do |issue|
               = render partial: 'projects/issue', locals: { issue: issue }
-
-
-#users.span3
-  #users-list.span3
-    - @project.users.each do |user|
-      = render partial: 'projects/user', locals: { user: user, project: @project }
-  %form.js-user-add
-    = text_field_tag 'user', nil, :placeholder => 'Enter username...', :id => 'add-user-textfield'
-    = hidden_field_tag 'project', @project.name, :id => 'add-user-project'
-    = submit_tag 'Add', :class => 'btn', :id => 'add-user-btn'
+  
